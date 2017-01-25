@@ -1,15 +1,23 @@
 //business logic
 
-var updateTally = function(diceRoll) {
-  var tally = 0;
+var updateTally = function(diceRoll, playerTally) {
+  var turnTally = playerTally;
   if (diceRoll === 1) {
-    alert("Next players turn.");
-    return tally = 0;
+    console.log("Next players turn.");
+    console.log("diceRoll: " + diceRoll);
+    return turnTally = 0;
   } else {
-    alert("Roll again or hold.")
-    return tally + diceRoll;}
+    turnTally = turnTally + diceRoll;
+    console.log("Roll again or hold.");
+    console.log("diceRoll: " + diceRoll);
+    return turnTally;
+  }
 }
 
+
+// $("#rollButton").click(function(){
+//   newDiceRoll=getRandomInt(1,6)
+// tally += newDiceRoll;
 
 ///copied from
 ///https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -23,11 +31,13 @@ $(document).ready(function() {
   console.log("hello!");
 
   $("#playerTurn").text("PlayerOne");
-  $("form#diceRoll").submit(function(event) {
+  $("form#newTurn").submit(function(event) {
     event.preventDefault();
     console.log("submitted!");
+    // var playerOneTurn=true;
+    var playerTally=0;
     var diceRoll=getRandomInt(1,6);
-    var turnTallyP1= updateTally(diceRoll);
+    var turnTallyP1= updateTally(diceRoll, playerTally);
     var turnTallyP2=0;
     var scoreBoardP1=0;
     var scoreBoardP2=0;
@@ -40,5 +50,17 @@ $(document).ready(function() {
     $("#scoreBoardP2").text(scoreBoardP2);
     $("#playerTurn").text(playerTurn);
     // alert("score: " + 0);
+    $("#rollButton").click(function(event) {
+      event.preventDefault();
+      diceRoll = getRandomInt(1,6);
+      turnTallyP1= updateTally(diceRoll, turnTallyP1);
+      console.log(turnTallyP1);
+      $("#diceRollResult").append(", " + diceRoll);
+      $("#turnTallyP1").text(turnTallyP1);
+      $("#turnTallyP2").text(turnTallyP2);
+      $("#scoreBoardP1").text(scoreBoardP1);
+      $("#scoreBoardP2").text(scoreBoardP2);
+      $("#playerTurn").text(playerTurn);
+    });
   });
 });
