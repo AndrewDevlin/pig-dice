@@ -49,5 +49,8 @@ The first player to score 100 or more points wins.
 |2)When PlayerOne rolls 1 and 6 the score gets updated and they get to play gain or loose their turn and the turnTally gets updated.| roll: 3 | turnTally = 3 |
 |3)When PlayerOne rolls again it updates the tally. | roll: 3 and a 6 | turnTally = 9|
 |4)When player presses hold the turnTally is added the gameScore. | roll: 3 and a 6 press: hold | gameScore = 9.|
+|5)When a player rolls a 1 or presses hold it will toggle to the second player.| playerOne, roll: 1| playerTwo is currentPlayer. |
+|6)When players play game the tally updates to the score, unless user rolls a 1 | playerOne, roll: 2,4,6,4 | gameScore = 16 |
+
 
 * End specifications
