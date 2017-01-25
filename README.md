@@ -48,6 +48,6 @@ The first player to score 100 or more points wins.
 |1)When "roll" button is pressed by Player One or Player Two, it will produce a random number 1  and the score of O is displayed in the respective score board.| press "roll" | diceRoll=1 turnTally=0 |
 |2)When PlayerOne rolls 1 and 6 the score gets updated and they get to play gain or loose their turn and the turnTally gets updated.| roll: 3 | turnTally = 3 |
 |3)When PlayerOne rolls again it updates the tally. | roll: 3 and a 6 | turnTally = 9|
-
+|4)When player presses hold the turnTally is added the gameScore. | roll: 3 and a 6 press: hold | gameScore = 9.|
 
 * End specifications

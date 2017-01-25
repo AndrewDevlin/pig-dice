@@ -62,5 +62,10 @@ $(document).ready(function() {
       $("#scoreBoardP2").text(scoreBoardP2);
       $("#playerTurn").text(playerTurn);
     });
+    $("#holdButton").click(function() {
+      event.preventDefault();
+      scoreBoardP1 += turnTallyP1
+      $("#scoreBoardP1").text(scoreBoardP1);
+    });
   });
 });
