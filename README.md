@@ -39,7 +39,8 @@ Follow Bank Account lab with business logic using classes and multiple object da
 ## Specifications
 |Desired Behaviour | Input Example | Output Example |
 |:---------------|:-----------:|---------------:|
-|1)When "roll" button is pressed by Player One or Player Two, it will produce a random number between 1 and 6 and the score is displayed in the respective score board.| press "roll" | diceRoll=1 Score=0 |
+|1)When "roll" button is pressed by Player One or Player Two, it will produce a random number 1  and the score of O is displayed in the respective score board.| press "roll" | diceRoll=1 TurnTally=0 |
+|2)When PlayerOne rolls 1 and 6 the score gets updated and they get to playa gain or loose their turn and the TurnTally gets updated.| roll: 3 | TurnTally = 3 | 
 
 
 * End specifications
