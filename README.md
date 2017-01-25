@@ -39,7 +39,7 @@ Follow Bank Account lab with business logic using classes and multiple object da
 ## Specifications
 |Desired Behaviour | Input Example | Output Example |
 |:---------------|:-----------:|---------------:|
-|1)When "roll" button is pressed it will produce a random number between 1 and 6 and the score is displayed.| press "roll" | diceRoll=1 Score=0 |
+|1)When "roll" button is pressed by Player One or Player Two, it will produce a random number between 1 and 6 and the score is displayed in the respective score board.| press "roll" | diceRoll=1 Score=0 |
 
 
 * End specifications
