@@ -10,16 +10,18 @@ var updateTally = function(diceRoll, playerTally, player) {
     console.log("Next players turn.");
     console.log("diceRoll: " + diceRoll);
     console.log("currentPlayer: " + player);
-    return turnTally = 0;
-  } else {
-    turnTally = turnTally + diceRoll;
+    turnTally = 0;
+    turnTallyP1 = 0;
+    turnTallyP2 = 0;
+    playerTally = 0;
+    return turnTally;
+  } else if (diceRoll != 1){
+    turnTally += diceRoll;
     console.log("Roll again or hold.");
     console.log("diceRoll: " + diceRoll);
     return turnTally;
   }
 }
-
-
 
 ////Player Toggle ///////
 var playerToggle = function(player) {
@@ -31,7 +33,7 @@ var playerToggle = function(player) {
     currentPlayer = "playerOne";
   }
   return currentPlayer;
-};
+}
 
 /// Random Function copied from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomInt(min, max) {
@@ -40,31 +42,38 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+// var toggleTally = function(diceRoll, playerTally, player) {
+//
+// };
 
 ////////////////////////////////////////////////////////////////////////////////
 // user interface logic
 $(document).ready(function() {
   console.log("currentPlayer: " + currentPlayer);
-  $("#playerTurn").text("PlayerOne");
+  $("#playerTurn").text(currentPlayer);
+  var playerTally=0;
+  var turnTallyP1=0;
+  var turnTallyP2=0;
+  var scoreBoardP1=0;
+  var scoreBoardP2=0;
 
-  ////Turn Button ///
+
+  ////Roll Button ///
   $("form#newTurn").submit(function(event) {
     event.preventDefault();
     console.log("currentPlayer: " + currentPlayer);
-    var playerTally=0;
-    var turnTallyP1=0;
-    var turnTallyP2=0;
     var diceRoll=getRandomInt(1,6);
+
     if (currentPlayer === "playerOne") {
-      var turnTallyP1= updateTally(diceRoll, playerTally, currentPlayer);
+      turnTallyP1= updateTally(diceRoll, playerTally, currentPlayer);
       playerTally = turnTallyP1;
     }
-    else {
-      var turnTallyP2= updateTally(diceRoll, playerTally, currentPlayer);
+    else if (currentPlayer === "playerTwo") {
+      turnTallyP2= updateTally(diceRoll, playerTally, currentPlayer);
       playerTally = turnTallyP2;
+      console.log("turnTallyP2: " + turnTallyP2);
     }
-    var scoreBoardP1=0;
-    var scoreBoardP2=0;
+
 
     ///Display Stats ////
     $("#diceRollResult").text(diceRoll);
@@ -73,37 +82,42 @@ $(document).ready(function() {
     $("#scoreBoardP1").text(scoreBoardP1);
     $("#scoreBoardP2").text(scoreBoardP2);
     $("#playerTurn").text(currentPlayer);
+  });
+  //submit//
 
 
-
-    /// Roll Button ////
-    $("#rollButton").click(function(event) {
+    /// HOLD Button ///
+    $("#holdButton").click(function() {
       event.preventDefault();
-      diceRoll = getRandomInt(1,6);
-
+      alert("hold!");
+      console.log("turnTallyP2: " + turnTallyP2);
+      var diceRoll=getRandomInt(1,6);
       if (currentPlayer === "playerOne") {
-        turnTallyP1= updateTally(diceRoll, playerTally,currentPlayer);
+        scoreBoardP1 += turnTallyP1;
       }
-      else {
-        turnTallyP2= updateTally(diceRoll, playerTally,currentPlayer);
+      else if (currentPlayer === "playerTwo") {
+        scoreBoardP2 += turnTallyP2;
       }
-      console.log(turnTallyP1);
+      ////clear tally ////
+      turnTallyP1 = 0;
+      turnTallyP2 = 0;
+      playerTally = 0;
+      ////switch player /////
+      currentPlayer = playerToggle(currentPlayer);
 
       ///Display Stats ////
-      $("#diceRollResult").append(", " + diceRoll);
+      $("#diceRollResult").text(diceRoll);
       $("#turnTallyP1").text(turnTallyP1);
       $("#turnTallyP2").text(turnTallyP2);
       $("#scoreBoardP1").text(scoreBoardP1);
       $("#scoreBoardP2").text(scoreBoardP2);
       $("#playerTurn").text(currentPlayer);
     });
+    //hold//
 
-    /// HOLD Button ///
-    $("#holdButton").click(function() {
-      event.preventDefault();
-      scoreBoardP1 += turnTallyP1
-      $("#scoreBoardP1").text(scoreBoardP1);
-      playerToggle(currentPlayer);
-    });
-  });
+    if (scoreBoardP1 >= 100) {
+      alert("Player One Wins!!!!!!!");
+    } else if (scoreBoardP2 >= 100) {
+      alert("Player Two Wins!!!!!!!!");
+    }
 });
